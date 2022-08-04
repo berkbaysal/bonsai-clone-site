@@ -3,28 +3,41 @@ import "../css/Navbar.scss"
 import Logo from "../assets/img/logo.svg"
 function Navbar() {
 
-    const [menuVisibiliy, setMenuVisibility] = React.useState({ largeRight: false, activeSmallRight:0});
-
+    const [menuVisibiliy, setMenuVisibility] = React.useState({ largeRight: false, activeSmallRight: 0, currentWindowWidth: 0 });
+    let isMobileSizeActive = menuVisibiliy.currentWindowWidth <= 900 ? true : false;
+  
     function LargeRightMenuVisible() {
         setMenuVisibility((oldState) => ({ ...oldState, largeRight: true }))
     }
     function LargeRightMenuInvisible() {
-        setMenuVisibility((oldState) => ({ ...oldState, largeRight: false }))
+        if (window.innerWidth > 900) {
+            setMenuVisibility((oldState) => ({ ...oldState, largeRight: false }))
+        }
     }
-    function changeActiveRightSubMenu(index){
+    function changeActiveRightSubMenu(index) {
         setMenuVisibility((oldState) => ({ ...oldState, activeSmallRight: index }))
     }
+    function updateWindowWidthState() {
+        setMenuVisibility((oldState) => ({ ...oldState, currentWindowWidth: window.innerWidth }))
+    }
+    React.useEffect(() => {
+        updateWindowWidthState();
+        addEventListener("resize", updateWindowWidthState);    
+    }, [])
 
     const templateNames = [
-        ["Featured Contract Templates","Free Contract Maker","Social Media Management Contract Template","Graphic Design Contract Template","Digital Marketing Contract Template"],
-        ["Featured Proposal Templates","Graphic Design Proposal Template","Business Proposal Template","Brand Ambassador Proposal Template","Data Entry Proposal Letter Template"],
-        ["Feautred Invoice Templates","Social Media Invoice Templates","Contractor Invoice Template","Web Design Invoice Template","Influencer Invoice Template"],
-        ["Featured Agreement Templates","Influencer Agreement Template","Influencer Collaboration Agreement Template","Monthly Retainer Agreement Template","Writer Agreement Template"],
-        ["Featured Quote Templates","Web Design Quotation Template","Interior Design Quotation Template","Digital Marketing Quotation Template","Video Production Quotation Template"],
-        ["Featured Scope of Work Templates","Website Development Scope of Work Template","Digital Marketing Scope of Work Template","Consultant Scope of Work Template","Interior Design Scope of Work Template"],
-        ["Featured Brief Templates","Design Brief Template","Architecture Design Brief","Fashion Design Brief","Creative Brief Template"]
-]
+        ["Featured Contract Templates", "Free Contract Maker", "Social Media Management Contract Template", "Graphic Design Contract Template", "Digital Marketing Contract Template"],
+        ["Featured Proposal Templates", "Graphic Design Proposal Template", "Business Proposal Template", "Brand Ambassador Proposal Template", "Data Entry Proposal Letter Template"],
+        ["Feautred Invoice Templates", "Social Media Invoice Templates", "Contractor Invoice Template", "Web Design Invoice Template", "Influencer Invoice Template"],
+        ["Featured Agreement Templates", "Influencer Agreement Template", "Influencer Collaboration Agreement Template", "Monthly Retainer Agreement Template", "Writer Agreement Template"],
+        ["Featured Quote Templates", "Web Design Quotation Template", "Interior Design Quotation Template", "Digital Marketing Quotation Template", "Video Production Quotation Template"],
+        ["Featured Scope of Work Templates", "Website Development Scope of Work Template", "Digital Marketing Scope of Work Template", "Consultant Scope of Work Template", "Interior Design Scope of Work Template"],
+        ["Featured Brief Templates", "Design Brief Template", "Architecture Design Brief", "Fashion Design Brief", "Creative Brief Template"]
+    ]
 
+    let largeRightStyle = { opacity: menuVisibiliy.largeRight ? "1" : "0", display: isMobileSizeActive ? menuVisibiliy.largeRight? "flex":"none":"flex"}
+    console.log(menuVisibiliy)
+    console.log(largeRightStyle)
     return (
         <div className="bonsai-style">
             <nav className="bonsai-style-navbar">
@@ -42,7 +55,7 @@ function Navbar() {
                                     <div className="navbar-submenu-large">
                                         <div className="navbar-submenu-large-left">
                                             <ul className="navbar-submenu-large-left-list">
-                                                <li className="navbar-submenu-large-left-item" onMouseEnter={LargeRightMenuVisible} onMouseLeave={LargeRightMenuInvisible}>
+                                                <li className="navbar-submenu-large-left-item" onMouseEnter={isMobileSizeActive ? () => { } : LargeRightMenuVisible} onMouseLeave={isMobileSizeActive? ()=>{}:LargeRightMenuInvisible} onClick={() => { LargeRightMenuVisible() }}>
                                                     <div className="navbar-submenu-large-left-info-container --border-below">
                                                         <div className="navbar-menu-item-head">Bonsai Workflow</div>
                                                         <div className="navbar-menu-item-subhead">Look professional, win more clients and manage your business from one place</div>
@@ -62,7 +75,7 @@ function Navbar() {
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div className="navbar-submenu-large-right" style={menuVisibiliy.largeRight ? { opacity: "1" } : { opacity: "0" }} onMouseEnter={LargeRightMenuVisible} onMouseLeave={LargeRightMenuInvisible}>
+                                        <div className="navbar-submenu-large-right" style={largeRightStyle} onMouseEnter={isMobileSizeActive ? () => { } : LargeRightMenuVisible} onMouseLeave={LargeRightMenuInvisible}>
                                             <ul className="navbar-submenu-large-right-list">
                                                 <li className="navbar-submenu-large-right-item">
                                                     <a href="#" className="grid-icon-link">
@@ -144,59 +157,59 @@ function Navbar() {
                             <li className="navbar-main-menu-item">
                                 <div className="navbar-main-menu-toggle">
                                     Templates<span className="menu-dropdown-arrow"><img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/5e5fd7c602ca7caeb4feb68a_Path.svg" /></span>
-                                    <div className="navbar-submenu-small" onMouseLeave={()=>{changeActiveRightSubMenu(0)}}>
+                                    <div className="navbar-submenu-small" onMouseLeave={() => { changeActiveRightSubMenu(0) }}>
                                         <div className="navbar-submenu-small-left">
                                             <ul className="navbar-submenu-small-left-list">
-                                                <li className="navbar-submenu-small-left-item" onMouseOver={()=>{changeActiveRightSubMenu(0)}}>
+                                                <li className="navbar-submenu-small-left-item" onMouseOver={() => { changeActiveRightSubMenu(0) }}>
                                                     <a href="" className="icon-list-element">
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/618e4a088d6d0a054fe41abb_contracts%20icon.svg" alt="" className="icon" />
                                                         <div className="template-name">Contract Templates</div>
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/5e5fd7c602ca7caeb4feb68a_Path.svg" alt="" className="arrow-icon" />
                                                     </a>
                                                 </li>
-                                                <li className="navbar-submenu-small-left-item" onMouseOver={()=>{changeActiveRightSubMenu(1)}}>
+                                                <li className="navbar-submenu-small-left-item" onMouseOver={() => { changeActiveRightSubMenu(1) }}>
                                                     <a href="" className="icon-list-element">
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/618e4a088d6d0a054fe41abb_contracts%20icon.svg" alt="" className="icon" />
                                                         <div className="template-name">Proposal Templates</div>
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/5e5fd7c602ca7caeb4feb68a_Path.svg" alt="" className="arrow-icon" />
                                                     </a>
                                                 </li>
-                                                <li className="navbar-submenu-small-left-item" onMouseOver={()=>{changeActiveRightSubMenu(2)}}>
+                                                <li className="navbar-submenu-small-left-item" onMouseOver={() => { changeActiveRightSubMenu(2) }}>
                                                     <a href="" className="icon-list-element">
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/618ce1898e7b44dfb4b5207e_Vector%20(11).svg" alt="" className="icon" />
                                                         <div className="template-name">Invoice Templates</div>
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/5e5fd7c602ca7caeb4feb68a_Path.svg" alt="" className="arrow-icon" />
                                                     </a>
                                                 </li>
-                                                <li className="navbar-submenu-small-left-item" onMouseOver={()=>{changeActiveRightSubMenu(3)}}>
+                                                <li className="navbar-submenu-small-left-item" onMouseOver={() => { changeActiveRightSubMenu(3) }}>
                                                     <a href="" className="icon-list-element">
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/618e4a088d6d0a054fe41abb_contracts%20icon.svg" alt="" className="icon" />
                                                         <div className="template-name">Agreement Templates</div>
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/5e5fd7c602ca7caeb4feb68a_Path.svg" alt="" className="arrow-icon" />
                                                     </a>
                                                 </li>
-                                                <li className="navbar-submenu-small-left-item" onMouseOver={()=>{changeActiveRightSubMenu(4)}}>
+                                                <li className="navbar-submenu-small-left-item" onMouseOver={() => { changeActiveRightSubMenu(4) }}>
                                                     <a href="" className="icon-list-element">
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/618e49eff7f1e27dd1b5326d_Proposals%20icon.svg" alt="" className="icon" />
                                                         <div className="template-name">Quote Templates</div>
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/5e5fd7c602ca7caeb4feb68a_Path.svg" alt="" className="arrow-icon" />
                                                     </a>
                                                 </li>
-                                                <li className="navbar-submenu-small-left-item" onMouseOver={()=>{changeActiveRightSubMenu(5)}}>
+                                                <li className="navbar-submenu-small-left-item" onMouseOver={() => { changeActiveRightSubMenu(5) }}>
                                                     <a href="" className="icon-list-element">
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/618e49352788d2281046f7be_time%20tracking%20icon.svg" alt="" className="icon" />
                                                         <div className="template-name">Scope of Work Templates</div>
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/5e5fd7c602ca7caeb4feb68a_Path.svg" alt="" className="arrow-icon" />
                                                     </a>
                                                 </li>
-                                                <li className="navbar-submenu-small-left-item" onMouseOver={()=>{changeActiveRightSubMenu(6)}}>
+                                                <li className="navbar-submenu-small-left-item" onMouseOver={() => { changeActiveRightSubMenu(6) }}>
                                                     <a href="" className="icon-list-element">
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/618e49eff7f1e27dd1b5326d_Proposals%20icon.svg" alt="" className="icon" />
                                                         <div className="template-name">Brief Templates</div>
                                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/5e5fd7c602ca7caeb4feb68a_Path.svg" alt="" className="arrow-icon" />
                                                     </a>
                                                 </li>
-                                                
+
                                             </ul>
                                         </div>
                                         <div className="navbar-submenu-small-right">
@@ -207,7 +220,7 @@ function Navbar() {
                                                 <li className="navbar-submenu-small-right-item">{templateNames[menuVisibiliy.activeSmallRight][3]}</li>
                                                 <li className="navbar-submenu-small-right-item">{templateNames[menuVisibiliy.activeSmallRight][4]}</li>
                                             </ul>
-                                            <div className="more-templates-link "><a href="#">See All Templates</a></div>   
+                                            <div className="more-templates-link "><a href="#">See All Templates</a></div>
                                         </div>
                                     </div>
 

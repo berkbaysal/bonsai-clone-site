@@ -45,7 +45,6 @@
                     align-items: center;
                     position: relative;
                     height: 100%;
-                    padding: 0rem 0;
                     cursor: pointer;
 
                     .navbar-main-menu-toggle {
@@ -314,25 +313,198 @@
         .navbar-content-container {
             .navbar-logo-container {
                 width: 10%;
+
                 .navbar-logo {
 
                     padding: 1.5rem 0;
                 }
             }
-            .navbar-main-interactables{
+
+            .navbar-main-interactables {
                 width: 90%;
             }
         }
     }
 }
-@media only screen and (max-width:900px){
+
+@media only screen and (max-width:900px) {
     .bonsai-style-navbar {
         height: 100vh;
-        .navbar-content-container{
-            flex-direction: column;
-            
-            .navbar-logo-container{
+        position: relative;
+
+        .navbar-content-container {
+            height: 100%;
+            padding: 2rem;
+
+            .navbar-logo-container {
                 display: none;
+            }
+
+            .navbar-main-interactables {
+                height: unset;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+
+                .navbar-main-menu {
+                    width: 100%;
+                    height: unset;
+                    flex-direction: column;
+                    align-items: flex-start;
+
+                    .navbar-main-menu-item {
+                        width: 100%;
+                        border-bottom: 1px solid lightgray;
+                        height: 3rem;
+                        font-weight: 300;
+                        font-size: 0.95rem;
+                        color: #4c4d5f;
+                        position: unset;
+
+                        .navbar-main-menu-toggle {
+                            width: 100%;
+                            padding: 0;
+                            display: flex;
+                            justify-content: space-between;
+                            font-size: inherit;
+                            font-weight: inherit;
+                            position: unset;
+
+                            .navbar-submenu-large {
+                                display: flex;
+                                left: 0;
+                                top: 0;
+                                z-index: 1;
+                                width: 100vw;
+                                margin: 0;
+                                height: 100vh;
+                                padding-top: 7rem;
+
+                                .navbar-submenu-large-left {
+                                    width: 100%;
+                                    height: 100%;
+
+                                    .navbar-submenu-large-left-list {
+                                        .navbar-submenu-large-left-item {
+                                            width: 100%;
+
+                                            .--border-below {
+                                                border: none;
+                                            }
+
+                                            .navbar-submenu-large-left-info-container {
+                                                border-bottom: 1px solid #f1f1f1;
+                                                color: black;
+
+                                                .navbar-menu-item-head {
+                                                    font-size: 1.1rem;
+                                                    font-weight: 500;
+
+                                                }
+
+                                                .navbar-menu-item-subhead {
+                                                    font-size: 0.8rem;
+                                                }
+                                            }
+
+
+                                        }
+                                    }
+
+                                }
+
+                                .navbar-submenu-large-right {
+                                    display: flex;
+                                    z-index: 2;
+                                    top: unset;
+                                    left: unset;
+                                    height: 100%;
+                                    width: 100%;
+
+                                    .navbar-submenu-large-right-list {
+                                        display: flex;
+                                        flex-direction: column;
+                                        width: 100%;
+                                        .navbar-submenu-large-right-item {
+                                            width: 100%;
+                                            padding: 0.5rem 0;
+                                            .grid-icon-link {
+                                                width: 100%;
+                                                .grid-icon {}
+
+                                                .grid-info-container {
+                                                    .grid-info-container-head {
+                                                        font-size: 0.9rem;
+                                                        font-weight: 600;
+                                                    }
+
+                                                    .grid-info-container-subhead {
+                                                        display: none;
+                                                    }
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            .navbar-submenu-small {
+                                display: flex;
+                                z-index: 3;
+                                top:0;
+                                left: 0;
+                                .navbar-submenu-small-left{
+                                    width: 100%;
+                                    display: flex;
+                                    .navbar-submenu-small-left-list{
+                                        width: 100%;
+                                        display: flex;
+                                        flex-direction: column;
+                                        .navbar-submenu-small-left-item{
+                                            display: flex;
+                                            .icon-list-element{
+                                                font-size: 2rem;
+                                                display: flex;
+                                                width: 100%;
+                                                align-items: center;
+                                                justify-content: flex-start;
+                                                .icon{}
+                                                .template-name{}
+                                                .arrow-icon{
+                                                    height: 50%;
+                                                    margin-left: auto;
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+                                .navbar-submenu-small-right{
+                                    display: none;
+                                }
+
+                            }
+                        }
+                    }
+
+                    .navbar-main-menu-item:hover {
+                        color: black;
+                    }
+                }
+
+                .navbar-buttons {
+                    flex-direction: column;
+                    width: 100%;
+                    margin: 1rem 0;
+                    justify-content: center;
+
+                    .navbar-button {
+                        text-align: center;
+                        width: 100%;
+                        margin-bottom: 1rem;
+                    }
+                }
             }
         }
     }
