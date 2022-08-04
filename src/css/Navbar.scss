@@ -6,6 +6,10 @@
     align-items: center;
     background-color: white;
 
+    .mobile-menu-button{
+        display:none;
+        position: absolute;
+    }
     .navbar-content-container {
         width: min(100%, 1200px);
         height: 100%;
@@ -271,12 +275,7 @@
                         }
                     }
 
-                    .navbar-main-menu-toggle:hover {
-                        .navbar-submenu-large {
-                            display: flex;
-                        }
-
-                    }
+                    
                 }
 
             }
@@ -332,6 +331,34 @@
         height: 100vh;
         position: relative;
 
+        .mobile-menu-button{
+            display: flex;
+            width: 46px;
+            height: 32px;
+            justify-content: space-between;
+            z-index: 999;
+            top: 2rem;
+            right: 4rem;
+            flex-direction: column;
+            .top-bar,.bottom-bar,.mid-bar{
+                width: 100%;
+                height: 4px;
+                background-color: #4c4d5f;
+                border-radius: 0.3rem;
+                transform-origin: 50% 50%;
+                transition: 0.5s;
+            }
+            .top-bar.--active{
+                transform: translateY(14px) rotate(-45deg);
+            }
+            .bottom-bar.--active{
+                transform: translateY(-14px) rotate(45deg);
+            }
+            .mid-bar.--active{
+                display:none;
+            }
+        }
+
         .navbar-content-container {
             height: 100%;
             padding: 2rem;
@@ -341,6 +368,7 @@
             }
 
             .navbar-main-interactables {
+                
                 height: unset;
                 flex-direction: column;
                 align-items: flex-start;
@@ -351,8 +379,9 @@
                     height: unset;
                     flex-direction: column;
                     align-items: flex-start;
-
+                    padding-top: 7rem;
                     .navbar-main-menu-item {
+                        
                         width: 100%;
                         border-bottom: 1px solid lightgray;
                         height: 3rem;
@@ -451,6 +480,7 @@
 
                             .navbar-submenu-small {
                                 display: flex;
+                                padding-top: 7rem;
                                 z-index: 3;
                                 top:0;
                                 left: 0;

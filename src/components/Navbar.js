@@ -3,16 +3,26 @@ import "../css/Navbar.scss"
 import Logo from "../assets/img/logo.svg"
 function Navbar() {
 
-    const [menuVisibiliy, setMenuVisibility] = React.useState({ largeRight: false, activeSmallRight: 0, currentWindowWidth: 0 });
+    const [menuVisibiliy, setMenuVisibility] = React.useState({ mainMenu:false, largeLeft: false, largeRight: false, small: false, activeSmallRight: 0, currentWindowWidth: 0, isAnyMenuActive: false });
     let isMobileSizeActive = menuVisibiliy.currentWindowWidth <= 900 ? true : false;
-  
-    function LargeRightMenuVisible() {
+    let isAnyMenuActive = (menuVisibiliy.mainMenu || menuVisibiliy.largeLeft || menuVisibiliy.largeRight || menuVisibiliy.small);
+    function largeRightMenuVisible() {
         setMenuVisibility((oldState) => ({ ...oldState, largeRight: true }))
     }
-    function LargeRightMenuInvisible() {
-        if (window.innerWidth > 900) {
-            setMenuVisibility((oldState) => ({ ...oldState, largeRight: false }))
-        }
+    function largeLeftMenuVisible() {
+        setMenuVisibility((oldState) => ({ ...oldState, largeLeft: true }))
+    }
+    function smallMenuVisible() {
+        setMenuVisibility((oldState) => ({ ...oldState, small: true }))
+    }
+    function largeRightMenuInvisible() {
+        setMenuVisibility((oldState) => ({ ...oldState, largeRight: false }))
+    }
+    function largeLeftMenuInvisible() {
+        setMenuVisibility((oldState) => ({ ...oldState, largeLeft: false }))
+    }
+    function smallMenuInvisible() {
+        setMenuVisibility((oldState) => ({ ...oldState, small: false }))
     }
     function changeActiveRightSubMenu(index) {
         setMenuVisibility((oldState) => ({ ...oldState, activeSmallRight: index }))
@@ -20,10 +30,19 @@ function Navbar() {
     function updateWindowWidthState() {
         setMenuVisibility((oldState) => ({ ...oldState, currentWindowWidth: window.innerWidth }))
     }
+    function handleMenuClick(){
+        if(!isAnyMenuActive){
+            setMenuVisibility((oldState) => ({ ...oldState, mainMenu: true }))
+        }
+        else{
+            setMenuVisibility((oldState) => ({ ...oldState, mainMenu:false, largeLeft: false, largeRight: false, small: false }))
+        }
+    }
     React.useEffect(() => {
         updateWindowWidthState();
-        addEventListener("resize", updateWindowWidthState);    
+        addEventListener("resize", updateWindowWidthState);
     }, [])
+
 
     const templateNames = [
         ["Featured Contract Templates", "Free Contract Maker", "Social Media Management Contract Template", "Graphic Design Contract Template", "Digital Marketing Contract Template"],
@@ -35,27 +54,34 @@ function Navbar() {
         ["Featured Brief Templates", "Design Brief Template", "Architecture Design Brief", "Fashion Design Brief", "Creative Brief Template"]
     ]
 
-    let largeRightStyle = { opacity: menuVisibiliy.largeRight ? "1" : "0", display: isMobileSizeActive ? menuVisibiliy.largeRight? "flex":"none":"flex"}
+    let largeRightStyle = { opacity: menuVisibiliy.largeRight ? "1" : "0", display: isMobileSizeActive ? menuVisibiliy.largeRight ? "flex" : "none" : "flex" }
+    let smallStyle = { display: menuVisibiliy.small ? "flex" : "none" }
+    let largeLeftStyle = { display: menuVisibiliy.largeLeft ? "flex" : "none" }
+    let mainMenuStyle = {display: isMobileSizeActive? menuVisibiliy.mainMenu?"flex":"none":"flex"}
     console.log(menuVisibiliy)
-    console.log(largeRightStyle)
     return (
         <div className="bonsai-style">
             <nav className="bonsai-style-navbar">
-                <div className="navbar-content-container">
+                <div className='mobile-menu-button' onClick={handleMenuClick}>
+                    <div className={`top-bar ${isAnyMenuActive?"--active":""}`}></div>
+                    <div className={`mid-bar ${isAnyMenuActive?"--active":""}`}></div>
+                    <div className={`bottom-bar ${isAnyMenuActive?"--active":""}`}></div>
+                </div>
+                <div className="navbar-content-container" style={mainMenuStyle}>
                     <div className="navbar-logo-container">
                         <Logo className="navbar-logo" />
                     </div>
                     <div className="navbar-main-interactables">
                         <ul className="navbar-main-menu">
-                            <li className="navbar-main-menu-item">
+                            <li className="navbar-main-menu-item" onMouseEnter={isMobileSizeActive ? () => { } : largeLeftMenuVisible} onMouseLeave={isMobileSizeActive ? () => { } : largeLeftMenuInvisible} onClick={isMobileSizeActive?largeLeftMenuVisible:()=>{}}>
                                 <div className="navbar-main-menu-toggle">
                                     Product<span className="menu-dropdown-arrow">
                                         <img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/5e5fd7c602ca7caeb4feb68a_Path.svg" />
                                     </span>
-                                    <div className="navbar-submenu-large">
-                                        <div className="navbar-submenu-large-left">
+                                    <div className="navbar-submenu-large "style={largeLeftStyle}>
+                                        <div className="navbar-submenu-large-left" >
                                             <ul className="navbar-submenu-large-left-list">
-                                                <li className="navbar-submenu-large-left-item" onMouseEnter={isMobileSizeActive ? () => { } : LargeRightMenuVisible} onMouseLeave={isMobileSizeActive? ()=>{}:LargeRightMenuInvisible} onClick={() => { LargeRightMenuVisible() }}>
+                                                <li className="navbar-submenu-large-left-item" onMouseEnter={isMobileSizeActive ? () => { } : largeRightMenuVisible} onMouseLeave={isMobileSizeActive ? () => { } : largeRightMenuInvisible} onClick={() => { largeRightMenuVisible() }}>
                                                     <div className="navbar-submenu-large-left-info-container --border-below">
                                                         <div className="navbar-menu-item-head">Bonsai Workflow</div>
                                                         <div className="navbar-menu-item-subhead">Look professional, win more clients and manage your business from one place</div>
@@ -75,7 +101,7 @@ function Navbar() {
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div className="navbar-submenu-large-right" style={largeRightStyle} onMouseEnter={isMobileSizeActive ? () => { } : LargeRightMenuVisible} onMouseLeave={LargeRightMenuInvisible}>
+                                        <div className="navbar-submenu-large-right" style={largeRightStyle} onMouseEnter={isMobileSizeActive ? () => { } : largeRightMenuVisible} onMouseLeave={isMobileSizeActive?()=>{}:largeRightMenuInvisible}>
                                             <ul className="navbar-submenu-large-right-list">
                                                 <li className="navbar-submenu-large-right-item">
                                                     <a href="#" className="grid-icon-link">
@@ -154,10 +180,10 @@ function Navbar() {
                                     </div>
                                 </div>
                             </li>
-                            <li className="navbar-main-menu-item">
+                            <li className="navbar-main-menu-item" onMouseEnter={isMobileSizeActive ? () => { } : smallMenuVisible} onMouseLeave={isMobileSizeActive ? () => { } : smallMenuInvisible} onClick={isMobileSizeActive? smallMenuVisible:()=>{}}>
                                 <div className="navbar-main-menu-toggle">
                                     Templates<span className="menu-dropdown-arrow"><img src="https://assets-global.website-files.com/58868bcd2ef4daaf0f072900/5e5fd7c602ca7caeb4feb68a_Path.svg" /></span>
-                                    <div className="navbar-submenu-small" onMouseLeave={() => { changeActiveRightSubMenu(0) }}>
+                                    <div className="navbar-submenu-small" onMouseLeave={() => changeActiveRightSubMenu(0)} style={smallStyle}>
                                         <div className="navbar-submenu-small-left">
                                             <ul className="navbar-submenu-small-left-list">
                                                 <li className="navbar-submenu-small-left-item" onMouseOver={() => { changeActiveRightSubMenu(0) }}>
