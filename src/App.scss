@@ -1,9 +1,10 @@
 :root{
     --primary-highlight: #FF764D;
     --deadspace: #D9D9D9;
+    --accent-one: #FBFFA7;
 }
 html{
-    background-color: black;
+    background-color: var(--deadspace);
 }
 
 *{

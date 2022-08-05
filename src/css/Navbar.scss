@@ -5,13 +5,18 @@
     height: 5rem;
     align-items: center;
     background-color: white;
+    max-width: 1600px;
+    margin: auto;
 
     .mobile-navbar {
-        position: fixed;
+        position: fixed; ///FOR STICKY
+        top: 0;
+        left: 0;
         display: none;
-        height: 4rem;
+        height: 5rem;
         width: 100vw;
         z-index: 999;
+        background-color: white;
 
         .mobile-menu-button {
             height: 100%;
@@ -23,11 +28,13 @@
     }
 
     .navbar-content-container {
-        width: min(100%, 1200px);
-        height: 100%;
+        position: fixed;///FOR STICKY
+        background-color: white;
+        width: min(100%, 1600px);
+        height: 5rem;
         display: flex;
         padding: 0 2rem;
-
+        z-index: 99;
         .navbar-logo-container {
             display: flex;
             align-items: flex-start;
@@ -351,11 +358,8 @@
 @media only screen and (max-width:900px) {
     .bonsai-style-navbar {
         position: relative;
-
         .mobile-navbar {
             display: flex;
-            top: 0;
-            left: 0;
             justify-content: space-between;
             padding: 2rem 4rem;
 
@@ -405,9 +409,12 @@
 
 
         .navbar-content-container {
-            height: 100%;
+            height: 100vh;
             padding: 2rem;
-
+            position: fixed;
+            background-color: white;
+            top: 0;
+            left: 0;
             .navbar-logo-container {
                 display: none;
             }

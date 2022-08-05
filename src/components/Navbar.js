@@ -3,8 +3,7 @@ import "../css/Navbar.scss"
 import Logo from "../assets/img/logo.svg"
 import MobileLogo from "../assets/img/logo-two.svg"
 function Navbar(props) {
-    let mobileLogo = MobileLogo;
-    let logo = Logo;
+    //OPTIONS: Sticky, Logo, Mobile Logo
 
     const [menuVisibiliy, setMenuVisibility] = React.useState({ mainMenu: false, largeLeft: false, largeRight: false, small: false, activeSmallRight: 0, currentWindowWidth: 0, isAnyMenuActive: false });
     let isMobileSizeActive = menuVisibiliy.currentWindowWidth <= 900 ? true : false;
