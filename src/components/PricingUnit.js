@@ -10,6 +10,7 @@ function PricingUnit(props) {
     }
     return (
             <div className="bonsai-pricing-unit-container">
+                {props.promoted &&<div className="ribbon">Most Popular</div>}
                 <div className="unit-title">{content[0]}</div>
                 <div className="unit-subtitle">{content[1]}</div>
                 <div className="unit-price">

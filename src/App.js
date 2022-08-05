@@ -8,7 +8,7 @@ function App() {
     return ( <div>
         <Navbar/>
         <Hero/>
-        <PricingDisplay/>
+        <PricingDisplay unitCount={3} promotedCard={2}/>
     </div> );
 }
 
