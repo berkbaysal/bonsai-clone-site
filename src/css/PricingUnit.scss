@@ -22,6 +22,8 @@
         rotate: (45deg);
         color:white;
         transform: translateY(5rem) translateX(-0.5rem);
+        text-transform: uppercase;
+        font-weight: 700;
     }
     .unit-title{
         font-size: 2rem;
@@ -53,16 +55,16 @@
             margin-left: 1rem;
             text-transform: uppercase;
             position: relative;
-            .bill-interval{
-                position: absolute;
-                width:100%;
-                height: 1rem;
-                font-size:1rem;
-                top:2.5rem;
-                text-transform: none;
-                left:calc(100% + 0.5rem);
-                line-height: 1rem;
-            }
+
+        }
+        .bill-interval{
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            width:100%;
+            font-size:1rem;
+            line-height: 1rem;
+            height: 100%;
         }
         
     }
@@ -71,7 +73,6 @@
         .unit-feature{
             display: flex;
             padding: 0.5rem 0;
-            .check-mark{}
             .feature-text{
                 margin-left: 1rem;
             }

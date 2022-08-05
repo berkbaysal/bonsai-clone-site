@@ -14,8 +14,8 @@ function PricingUnit(props) {
                 <div className="unit-title">{content[0]}</div>
                 <div className="unit-subtitle">{content[1]}</div>
                 <div className="unit-price">
-                    <span className="currency">{props.currency?props.currency:"$"}</span><span className="price">{props.yearly?content[3]:content[2]}</span><span className='interval'>/month<span className="bill-interval">{props.yearly?"Billed yearly":""}</span></span>
-                    
+                    <span className="currency">{props.currency?props.currency:"$"}</span><span className="price">{props.yearly?content[3]:content[2]}</span><span className='interval'>/month</span>
+                    <div className="bill-interval">{props.yearly?"Billed yearly":""}</div>
                     </div>
                 <ul className="unit-features">
                     {listItems}
